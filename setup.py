@@ -5,7 +5,7 @@ from pathlib import Path
 
 from setuptools import find_packages, setup
 
-_PACKAGE_NAME = "module"
+_PACKAGE_NAME = "prerequisites"
 
 BASE_DIR = Path(__file__).resolve().parent / _PACKAGE_NAME
 _VERSION_RE = re.compile(r"__version__\s+=\s+(?P<version>.*)")
@@ -25,7 +25,7 @@ setup(
     name=_PACKAGE_NAME.replace("_", "-"),
     version=get_version(),
     author="Samuel Pedro",
-    description="Python Template",
+    description="Prerequisite functions to help and assert inputs and outputs condition and type",
     include_package_data=True,
     install_requires=[],
     data_files=[],

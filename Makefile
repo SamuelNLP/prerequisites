@@ -10,9 +10,6 @@ clean_tests:
 clean_mypy:
 	rm -rf .mypy_cache
 
-clean_notebooks:
-	rm -rf .ipynb_checkpoints
-
 clean: clean_dist clean_mypy clean_tests clean_notebooks
 
 test:
@@ -32,6 +29,3 @@ isort:
 
 format: isort
 	poetry run black .
-
-install_jupyter:
-	pip install jupyterlab

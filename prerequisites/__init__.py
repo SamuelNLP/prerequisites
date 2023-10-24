@@ -2,6 +2,9 @@
 
 from typing import Iterable, Optional, Type, TypeVar, Union, no_type_check
 
+__version__ = "1.0.0"
+__version_info__ = tuple(__version__.split("."))
+
 # create a type var to then tests if input type is the same as output type for example
 TypeX = TypeVar("TypeX")
 TypeY = TypeVar("TypeY", bound=Iterable)

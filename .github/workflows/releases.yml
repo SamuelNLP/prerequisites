@@ -23,7 +23,7 @@ jobs:
       run: poetry install
 
     - name: Install dependencies
-      run: which python
+      run: poetry run which python
 
 #    - name: Package module
 #      run: python setup.py sdist bdist_wheel

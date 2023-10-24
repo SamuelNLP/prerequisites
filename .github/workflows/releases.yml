@@ -25,8 +25,8 @@ jobs:
     - name: Package module
       run: poetry run python setup.py sdist bdist_wheel
 
-#    - name: Upload to PyPI
-#      run: twine upload dist/*
-#      env:
-#        TWINE_USERNAME: __token__
-#        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+    - name: Upload to PyPI
+      run: poetry run twine upload dist/*
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}

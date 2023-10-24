@@ -10,7 +10,7 @@ clean_tests:
 clean_mypy:
 	rm -rf .mypy_cache
 
-clean: clean_dist clean_mypy clean_tests clean_notebooks
+clean: clean_dist clean_mypy clean_tests
 
 test:
 	poetry run pytest -n 4 -p no:cacheprovider

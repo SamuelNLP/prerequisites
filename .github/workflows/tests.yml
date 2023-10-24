@@ -1,10 +1,9 @@
-name: python-template
+name: Test package
 
 on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:

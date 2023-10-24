@@ -38,6 +38,7 @@ snakeviz = "^2.1.1"
 ruff = "^0.0.257"
 jupyterlab = "^3.6.1"
 isort = "5.12.0"
+twine = "^4.0.2"
 
 [build-system]
 requires = ["poetry-core"]

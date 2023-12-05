@@ -27,6 +27,7 @@ setup(
     author="Samuel Pedro",
     description="Prerequisite functions to help and assert inputs and outputs condition and type",
     include_package_data=True,
+    package_data={'': ['py.typed']},
     install_requires=[],
     data_files=[],
     packages=find_packages(),

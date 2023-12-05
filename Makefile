@@ -1,7 +1,7 @@
 # some common operations
 
 clean_dist:
-	rm -rf dist *.egg-info
+	rm -rf dist *.egg-info build
 
 clean_tests:
 	rm -rf .pytest_cache .tox .coverage htmlcov test_report_36.xml
@@ -19,7 +19,7 @@ test_w_coverage:
 	poetry run pytest -v -n 3 --junitxml=test_report.xml --cov-report html --cov=module tests/
 
 package: clean_dist
-	python setup.py sdist
+	python setup.py sdist bdist_wheel
 
 mypy:
 	poetry run mypy . --ignore-missing-imports

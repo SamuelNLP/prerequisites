@@ -1,32 +1,24 @@
-name: Test package
+name: Test Package
 
 on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.10"]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
+    - uses: actions/checkout@v5
 
-    - name: Install poetry
-      run: curl -sSL https://install.python-poetry.org | python3 -
+    - name: "Set up Python"
+      uses: actions/setup-python@v6
+      with:
+        python-version-file: "pyproject.toml"
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v6
 
     - name: Install dependencies
-      run: poetry install
+      run: uv sync --all-extras
 
     - name: Test
       run: make test_w_coverage
-
-# todo: fix code coverage
-#    - name: Code Coverage
-#    - uses: codecov/codecov-action@v1
-#      with:
-#        fail_ci_if_error: true

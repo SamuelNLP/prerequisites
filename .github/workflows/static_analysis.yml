@@ -1,12 +1,9 @@
-name: Release and Publish to PyPI
+name: Static Analysis
 
-on:
-  push:
-    tags:
-      - '*'
+on: [push]
 
 jobs:
-  release:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,11 +20,8 @@ jobs:
     - name: Install dependencies
       run: uv sync --all-extras
 
-    - name: Build
-      run: uv build
+    - name: Ruff
+      run: make ruff
 
-    - name: Upload to PyPI
-      run: uv run twine upload dist/*
-      env:
-        TWINE_USERNAME: __token__
-        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+    - name: Mypy
+      run: make mypy

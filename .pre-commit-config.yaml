@@ -1,31 +1,29 @@
 repos:
-  - repo: https://github.com/ambv/black
-    rev: 22.12.0
-    hooks:
-      - id: black
-        language_version: python3.10
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v6.0.0
     hooks:
       - id: requirements-txt-fixer
       - id: end-of-file-fixer
       - id: trailing-whitespace
-  - repo: https://github.com/pycqa/flake8
-    rev: 5.0.4
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.5
     hooks:
-      - id: flake8
-        exclude: ^(notebooks)
+      - id: ruff
+        args: [ --fix ]
+      - id: ruff-format
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.971
+    rev: v1.18.2
     hooks:
       - id: mypy
-        exclude: ^(docs/|example-plugin/|tests/fixtures)
+        args: [--ignore-missing-imports, --check-untyped-defs ]
         additional_dependencies:
           - types-PyYAML
           - types-python-dateutil
           - types-setuptools
           - types-mock
-  - repo: https://github.com/timothycrosley/isort
-    rev: 5.12.0
+          - types-mysqlclient
+          - types-requests
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.9.9
     hooks:
-      - id: isort
+      - id: uv-lock

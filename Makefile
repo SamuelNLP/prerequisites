@@ -1,31 +1,35 @@
-# some common operations
+-include .env
+
+SHELL = /bin/bash
+PACKAGE_VERSION:=$(shell git describe --tags --abbrev=0)
 
 clean_dist:
-	rm -rf dist *.egg-info build
+	rm -rf dist *.egg-info
 
 clean_tests:
-	rm -rf .pytest_cache .tox .coverage htmlcov test_report_36.xml
+	rm -rf .pytest_cache .tox .coverage htmlcov unit_test_report.xml
 	py3clean .
 
 clean_mypy:
 	rm -rf .mypy_cache
 
-clean: clean_dist clean_mypy clean_tests
+clean_ruff:
+	rm -rf .ruff_cache
+
+clean: clean_dist clean_mypy clean_tests clean_ruff
 
 test:
-	poetry run pytest -n 4 -p no:cacheprovider
+	uv run pytest -v -p no:cacheprovider tests
 
 test_w_coverage:
-	poetry run pytest -v -n 3 --junitxml=test_report.xml --cov-report html --cov=module tests/
+	uv run pytest -v --cov-report html --cov=prerequisites tests/ #--cov-fail-under=90
 
 package: clean_dist
-	python setup.py sdist bdist_wheel
+	uv build --format wheel
 
 mypy:
-	poetry run mypy . --ignore-missing-imports
+	uv run mypy .
 
-isort:
-	poetry run isort .
-
-format: isort
-	poetry run black .
+ruff:
+	uv run ruff format .
+	uv run ruff check . --fix

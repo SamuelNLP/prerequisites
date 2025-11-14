@@ -1,4 +1,4 @@
-"""Test prerequisites file"""
+"""Test prerequisites file."""
 
 from typing import Dict
 
@@ -16,11 +16,8 @@ from prerequisites import (
 )
 
 
-def test_require_conditions():
-    """
-    Test require conditions
-    """
-
+def test_require_conditions() -> None:
+    """Test require conditions."""
     require(1 > 0)
     require_one_in_all([1 > 0, False])
     require_all_in_all([1 > 0, True, "a" + "b" == "ab"])
@@ -35,11 +32,8 @@ def test_require_conditions():
         require_all_in_all([1 > 0, False, "a" + "b" == "ab"])
 
 
-def test_variable_types():
-    """
-    Test require types
-    """
-
+def test_variable_types() -> None:
+    """Test require types."""
     require_type(1, int)
     require_one_of_types(1, (int, float))
     require_all_of_type([1, 2, 3, 0, 1 + 2], int)

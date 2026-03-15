@@ -1,5 +1,6 @@
 """Prerequisite helpers for value, type, and decorator checks."""
 
+from prerequisites.decorators import validate_types
 from prerequisites.types import (
     require_all_of_type,
     require_all_same_type,
@@ -18,4 +19,5 @@ __all__ = [
     "require_all_of_type",
     "require_all_same_type",
     "require_type_or_none",
+    "validate_types",
 ]

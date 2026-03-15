@@ -43,6 +43,12 @@ def test_require_all_of_type_raises_for_mixed_iterable() -> None:
         require_all_of_type([1, 2, 3, "a"], int)
 
 
+def test_require_all_of_type_returns_original_iterable_for_valid_values() -> None:
+    """Ensure `require_all_of_type` returns input when all values match."""
+    values = [1, 2, 3]
+    assert require_all_of_type(values, int) == values
+
+
 def test_require_all_of_type_raises_for_invalid_expected_type_argument() -> None:
     """Ensure `require_all_of_type` fails fast when expected_type is not a type."""
     with pytest.raises(TypeError, match="expected_type must be a type"):

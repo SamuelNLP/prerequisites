@@ -3,9 +3,8 @@ name = "prerequisites"
 description = "Prerequisite functions to help and assert inputs and outputs condition and type"
 authors = [{ name = "SamuelNLP" }]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.14"
 dynamic = ["version"]
-in-project = true
 dependencies = []
 
 [project.optional-dependencies]
@@ -68,8 +67,8 @@ line-length = 88
 # Allow unused variables when underscore-prefixed.
 lint.dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
-# Assume Python 3.13.
-target-version = "py313"
+# Assume Python 3.14.
+target-version = "py314"
 
 [tool.ruff.format]
 # format docstrings
@@ -93,11 +92,7 @@ section-order = [
 ]
 
 [tool.coverage.run]
-omit = [
-  "*/app.py",
-  "*/logger.py",
-  "*/__init__.py",
-]
+omit = []
 
 [tool.coverage.report]
 exclude_also = [
@@ -107,7 +102,7 @@ exclude_also = [
 ]
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.14"
 ignore_missing_imports = true
 check_untyped_defs = true
 disallow_untyped_defs = true

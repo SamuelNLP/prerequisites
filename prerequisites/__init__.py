@@ -1,11 +1,10 @@
 """Prerequisite functions to help and assert inputs and outputs condition and type."""
 
-from typing import Iterable, Optional, Type, TypeVar, Union, no_type_check
+from typing import Any, Iterable, TypeVar
 
 # create a type var to then test if an input type is the same as an output type
 TypeX = TypeVar("TypeX")
 TypeY = TypeVar("TypeY", bound=Iterable)
-TypeS = TypeVar("TypeS", bound=Iterable)
 
 
 # conditions
@@ -63,8 +62,7 @@ def require_all_in_all(
 
 
 # types
-@no_type_check
-def require_type(variable: TypeX, expected_type: Type) -> TypeX:
+def require_type(variable: TypeX, expected_type: type[Any]) -> TypeX:
     """
     Require type of variable.
 
@@ -81,14 +79,20 @@ def require_type(variable: TypeX, expected_type: Type) -> TypeX:
         If assert is True, it returns the variable.
 
     """
+    if not isinstance(expected_type, type):
+        raise TypeError(
+            f"expected_type must be a type, got {type(expected_type).__name__}."
+        )
+
     if not isinstance(variable, expected_type):
-        raise TypeError(f"Expected type {expected_type}, got {type(variable)}!")
+        raise TypeError(
+            f"Expected {expected_type.__name__}, got {type(variable).__name__}."
+        )
 
     return variable
 
 
-@no_type_check
-def require_one_of_types(variable: TypeX, allowed_types: TypeY) -> TypeX:
+def require_one_of_types(variable: TypeX, allowed_types: Iterable[type[Any]]) -> TypeX:
     """
     Require one of the types specified.
 
@@ -113,8 +117,7 @@ def require_one_of_types(variable: TypeX, allowed_types: TypeY) -> TypeX:
     return variable
 
 
-@no_type_check
-def require_all_of_type(iterable: TypeY, expected_type: Type) -> TypeY:
+def require_all_of_type(iterable: TypeY, expected_type: type[Any]) -> TypeY:
     """
     Require all objects from an iterable to be of the type specified.
 
@@ -131,18 +134,20 @@ def require_all_of_type(iterable: TypeY, expected_type: Type) -> TypeY:
         If assert is True, it returns the iterable passed.
 
     """
-    if not all(isinstance(variable, expected_type) for variable in iterable):
+    if not isinstance(expected_type, type):
         raise TypeError(
-            f"Expected all values in variable to be of type {expected_type}!"
+            f"expected_type must be a type, got {type(expected_type).__name__}."
         )
+
+    if not all(isinstance(variable, expected_type) for variable in iterable):
+        raise TypeError(f"Expected all values to be {expected_type.__name__}.")
 
     return iterable
 
 
-@no_type_check
 def require_all_same_type(
-    iterable: TypeY, allowed_types: Optional[TypeS] = None
-) -> TypeS:
+    iterable: TypeY, allowed_types: Iterable[type[Any]] | None = None
+) -> TypeY:
     """
     Require all objects from iterable to be of the same type.
 
@@ -159,17 +164,25 @@ def require_all_same_type(
         If assert is True, it returns the iterable passed.
 
     """
-    if len(set(map(type, iterable))) > 1:
+    iterator = iter(iterable)
+
+    try:
+        first_element = next(iterator)
+    except StopIteration:
+        return iterable
+
+    if any(type(item) is not type(first_element) for item in iterator):
         raise TypeError("All elements of iterable must be of the same type.")
 
     if allowed_types is not None:
-        require_one_of_types(set(iterable).pop(), allowed_types)
+        require_one_of_types(first_element, allowed_types)
 
     return iterable
 
 
-@no_type_check
-def require_type_or_none(variable: TypeX, expected_type: Type) -> Union[TypeX, None]:
+def require_type_or_none(
+    variable: TypeX | None, expected_type: type[Any]
+) -> TypeX | None:
     """
     Require a type or None.
 

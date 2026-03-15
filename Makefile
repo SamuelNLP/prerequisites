@@ -22,7 +22,7 @@ test:
 	uv run pytest -v -p no:cacheprovider tests
 
 test_w_coverage:
-	uv run pytest -v --cov-report html --cov=prerequisites tests/ #--cov-fail-under=90
+	uv run pytest -v --cov-report html --cov=prerequisites tests/ --cov-fail-under=90
 
 package: clean_dist
 	uv build --format wheel
@@ -33,3 +33,6 @@ mypy:
 ruff:
 	uv run ruff format .
 	uv run ruff check . --fix
+
+sync:
+	uv sync --all-extras

@@ -14,6 +14,8 @@ Your job is to support my thinking, not replace it.
 - If something is ambiguous, ask a single short clarification.
 - Assume I am an experienced engineer.
 - Be precise, concise, and pragmatic.
+- Never push commits to remote unless I explicitly ask for a push.
+- Never use local/relative imports (e.g. `from .module import x`); always use absolute imports.
 
 ## Commit messages
 Write commit messages in a single line whenever possible.
